@@ -1,0 +1,21 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-body">
+                <h2 class="card-title text-center">Kayıt Ol</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary w-100">Hesap Oluştur</button>
+                </form>
+                <div class="mt-3 text-center">
+                    <small>Zaten hesabınız var mı? <a href="#">Giriş Yap</a></small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+<div class="row mt-5">
+    <div class="col-md-6">
+        {% if product.image %}
+           <img src="{{ product.image.url }}" class="img-fluid rounded shadow" alt="{{ product.name }}" style="max-height: 400px; width: 100%; object-fit: cover;">
+        {% else %}
+             <div class="bg-secondary text-white d-flex align-items-center justify-content-center rounded" style="height: 400px;">
+        <p>Görsel Yakında</p>
+             </div>
+         {% endif %}
+    </div>
+    <div class="col-md-6">
+        <h1>{{ product.name }}</h1>
+        <p class="badge bg-info text-dark">{{ product.category.name }}</p>
+        <hr>
+        <h3 class="text-primary">{{ product.price }} TL</h3>
+        <p class="text-muted small">Ürün Kodu: {{ product.sku }}</p>
+
+            {% if product.stock > 0 %}
+                <p class="text-success">Stokta Var ({{ product.stock }} adet)</p>
+            {% else %}
+                <p class="text-danger">Stokta Yok</p>
+            {% endif %}
+        <p class="mt-4">{{ product.description }}</p>
+        
+        <a href="{% url 'cart_add' product.id %}" class="btn btn-success btn-sm">Sepete Ekle</a>
+        <a href="/" class="btn btn-outline-secondary btn-lg mt-3">Geri Dön</a>
+    </div>
+</div>
+{% endblock %}

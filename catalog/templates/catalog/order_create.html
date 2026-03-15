@@ -1,0 +1,86 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row g-5">
+        <div class="col-md-5 col-lg-4 order-md-last">
+            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-primary">Sepetiniz</span>
+                <span class="badge bg-primary rounded-pill">{{ cart|length }}</span>
+            </h4>
+            <ul class="list-group mb-3 shadow-sm">
+                {% for item in cart %}
+                <li class="list-group-item d-flex justify-content-between lh-sm">
+                    <div>
+                        <h6 class="my-0">{{ item.product.name }}</h6>
+                        <small class="text-muted">{{ item.quantity }} adet x {{ item.price }} TL</small>
+                    </div>
+                    <span class="text-muted">{{ item.total_price }} TL</span>
+                </li>
+                {% endfor %}
+                <li class="list-group-item d-flex justify-content-between bg-light">
+                    <span>Toplam (TL)</span>
+                    <strong>{{ cart.get_total_price }} TL</strong>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-md-7 col-lg-8">
+            <h4 class="mb-3">Teslimat Bilgileri</h4>
+            <form action="." method="post" class="needs-validation shadow-sm p-4 bg-white rounded border">
+                {% csrf_token %}
+                <div class="row g-3">
+                    <div class="col-sm-6">
+                        <label class="form-label">Adınız</label>
+                        {{ form.first_name }}
+                        {% if form.first_name.errors %}<div class="text-danger small">{{ form.first_name.errors }}</div>{% endif %}
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label class="form-label">Soyadınız</label>
+                        {{ form.last_name }}
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label">E-posta</label>
+                        {{ form.email }}
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label">Adres</label>
+                        {{ form.address }}
+                    </div>
+
+                    <div class="col-md-5">
+                        <label class="form-label">Şehir</label>
+                        {{ form.city }}
+                    </div>
+                </div>
+
+                <hr class="my-4">
+
+                <button class="w-100 btn btn-success btn-lg" type="submit">
+                    <i class="bi bi-credit-card"></i> Siparişi Tamamla
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    input {
+        display: block;
+        width: 100%;
+        padding: .375rem .75rem;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #212529;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: .375rem;
+        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    }
+</style>
+{% endblock %}
